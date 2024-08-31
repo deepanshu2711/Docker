@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 
 RUN npm install
-RUN npm build
+RUN npm run build
 
 #This is the port number that the container will expose and will be accessible from outside the container.
 EXPOSE 3000
