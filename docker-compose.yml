@@ -1,30 +1,37 @@
 # helps you to run multi-container application in Docker
 
-version: '1.0'
+# version of docker compose we want
+version: '1.0'  
 services:
   # mongodb container 
-  mongodb:
-    image: mongo
-    container_name: mongoContainer
-    ports:
-      - "27017:27017"
-    volumes:
-      -mongodb_data:/data/db
+  # mongodb:
+  #   image: mongo
+  #   container_name: mongoContainer
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     -mongodb_data:/data/db
   # node backend container
   nodeBackend:
-    image: node-project
+    image: node_project
     container_name: nodeProjectContainer
+    # depends_on:
+    #   - mongodb
     ports:
       - "3000:3000"
     environment:
       - NAME=DeepanshuSainiDockerCompose
       - MONGO_URL=mongodb://mongodb:27017/nodeProject
   
-  volumes:
-    mongodb_data:
+  # volumes:
+  #   mongodb_data:
 
 
 
 # docker-compose up
 # docker-compose down (stop every thing)
   
+# In Docker Compose, services can communicate with each other by default using the service name as the hostname, 
+# even if you haven't explicitly defined a network. 
+# Docker Compose automatically creates a default network for the application and attaches each service container to it. 
+# This network is usually a bridge network, which allows inter-container communication.
