@@ -12,19 +12,35 @@ services:
   #   volumes:
   #     -mongodb_data:/data/db
   # node backend container
-  node-backend:
+  # node-backend:
     # image: node_project
     # Insted of using the image , we can use a built image by using the build keyword
-    build: .
+    # build: .
     
-    container_name: nodeProjectContainer
+    # container_name: nodeProjectContainer
     # depends_on:
     #   - mongodb
-    ports:
-      - "3000:3000"
-    environment:
-      - NAME=DeepanshuSainiDockerCompose
-      - MONGO_URL=mongodb://mongodb:27017/nodeProject
+    # ports:
+      # - "3000:3000"
+    # environment:
+      # - NAME=DeepanshuSainiDockerCompose
+      # - MONGO_URL=mongodb://mongodb:27017/nodeProject
+
+    nextjs-app:
+      image: next-app
+      container_name: next-app-container
+      ports:
+        - "3001:3000"
+      environment:
+        - NEXT_PUBLIC_API_URL=http://localhost:3000
+        - NODE_ENV=development
+        # This section mounts a directory from the host machine into the container, 
+        # allowing you to persist data or share code between the host and the container (hot reloading).
+        #./next-app is a relative path on your host machine, and /app is the path in the container.
+        # This mounts the /next-app directory on the host machine to the /app directory in the container.
+        #this is called a Bind mount or a volume mount.
+      volumes:
+        - ./next-app:/app
   
   # volumes:
   #   mongodb_data:
