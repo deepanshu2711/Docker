@@ -2,12 +2,19 @@
 FROM node:18-alpine
 #set working directory  Sets the working directory for any RUN, CMD, ENTRYPOINT, COPYinstructions that follow it.  Layer2
 WORKDIR /app
-#copy everything from the current directory to the working directory inside the container  Layer3
-COPY . .
+
+#copy package.json and package-lock.json files from the current directory to the working directory inside the container Layer3
+COPY package* .
+# COPY ./prisma .
 
 #install dependencies  Layer4
 RUN npm install
-#build the project  Layer5
+# RUN npx primsa generate
+
+#copy everything from the current directory to the working directory inside the container  Layer5
+COPY . .
+
+#build the project  Layer6
 RUN npm run build
 
 #This is the port number that the container will expose and will be accessible from outside the container.
@@ -29,3 +36,6 @@ CMD ["node" , "dist/index.js"]
 #if you make a change to the 3rd layer and build the image again, all the layers above it will be we reused and all the layers below it will build
 
 #Layers stack on top of each other to create a single image. Each layer is a snapshot of the application at a specific point in time.
+
+
+# Now in this docker file if packeage.json and package-lock.json files are changed then RUN npm install command is [Cached] same for prisma
