@@ -1,7 +1,7 @@
 # helps you to run multi-container application in Docker
 
 # version of docker compose we want
-version: '1.0'  
+version: '3.8'  
 services:
   # mongodb container 
   # mongodb:
@@ -12,8 +12,11 @@ services:
   #   volumes:
   #     -mongodb_data:/data/db
   # node backend container
-  nodeBackend:
-    image: node_project
+  node-backend:
+    # image: node_project
+    # Insted of using the image , we can use a built image by using the build keyword
+    build: .
+    
     container_name: nodeProjectContainer
     # depends_on:
     #   - mongodb
