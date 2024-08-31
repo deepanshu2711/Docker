@@ -1,0 +1,30 @@
+# helps you to run multi-container application in Docker
+
+version: '1.0'
+services:
+  # mongodb container 
+  mongodb:
+    image: mongo
+    container_name: mongoContainer
+    ports:
+      - "27017:27017"
+    volumes:
+      -mongodb_data:/data/db
+  # node backend container
+  nodeBackend:
+    image: node-project
+    container_name: nodeProjectContainer
+    ports:
+      - "3000:3000"
+    environment:
+      - NAME=DeepanshuSainiDockerCompose
+      - MONGO_URL=mongodb://mongodb:27017/nodeProject
+  
+  volumes:
+    mongodb_data:
+
+
+
+# docker-compose up
+# docker-compose down (stop every thing)
+  
