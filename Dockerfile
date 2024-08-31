@@ -39,3 +39,23 @@ CMD ["node" , "dist/index.js"]
 
 
 # Now in this docker file if packeage.json and package-lock.json files are changed then RUN npm install command is [Cached] same for prisma
+
+
+#volumes are used to persist data between containers reloads. They are created using the docker volume create command and can be mounted to containers using the -v option.
+
+#docker volume create my-volume
+#docker run -v my-volume:/data/db -p 27017:27017 mongo
+#docker volume ls
+#docker volume rm my-volume
+
+
+#networks are used to create logical boundaries for communication between containers. They can be used to isolate containers and provide a way to connect them together.
+
+# docker network create my-network
+# docker run -d -v my-volume:/data/db --name mongoDB --network my-network -p 27017:27017 mongo         MongodbContainer
+# docker run -d -p 3000:3000 --name nodeBackend --network my-network node_backend                      Your node application container
+# docker network ls
+# docker network rm my-network
+
+
+# docker logs <container_id>   to check the logs of a container
